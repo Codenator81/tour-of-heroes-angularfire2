@@ -1,29 +1,18 @@
-import { Hero } from './hero';
-import { HEROES } from './mock-heroes';
 import { Injectable } from '@angular/core';
+import { AngularFire } from "angularfire2";
+import {Observable} from "rxjs";
 
 @Injectable()
 export class HeroService {
-  getHeroes(): Promise<Hero[]> {
-    return Promise.resolve(HEROES);
+
+  constructor(private af:AngularFire) {
   }
 
-  getHeroesSlowly(): Promise<Hero[]> {
-    return new Promise(resolve => {
-      // Simulate server latency with 2 second delay
-      setTimeout(() => resolve(this.getHeroes()), 2000);
-    });
+  getHeroes() : Observable<any> {
+    return this.af.database.list('heroes');
   }
 
-  getHero(id: number): Promise<Hero> {
-    return this.getHeroes()
-               .then(heroes => heroes.find(hero => hero.id === id));
+  getHero(id: number) : Observable<any> {
+    return this.af.database.object(`heroes/${id}`);
   }
 }
-
-
-/*
-Copyright 2016 Google Inc. All Rights Reserved.
-Use of this source code is governed by an MIT-style license that
-can be found in the LICENSE file at http://angular.io/license
-*/

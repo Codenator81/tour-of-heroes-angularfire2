@@ -13,6 +13,7 @@ import {HeroDetailComponent} from "./hero-detail.component";
 import {HeroesComponent} from "./heroes.component";
 import {HeroService} from "./hero.service";
 import {firebaseConfig} from "../environments/firebase.config";
+import { HeroSearchComponent } from './hero-search/hero-search.component';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import {firebaseConfig} from "../environments/firebase.config";
     DashboardComponent,
     HeroDetailComponent,
     HeroesComponent,
+    HeroSearchComponent,
   ],
   imports: [
     BrowserModule,

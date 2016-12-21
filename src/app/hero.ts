@@ -1,4 +1,4 @@
-export interface Hero {
-  id: number;
+export class Hero {
+  $key?: string;
   name: string;
 }

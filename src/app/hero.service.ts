@@ -22,4 +22,12 @@ export class HeroService {
   update(hero: Hero): firebase.Promise<any> {
      return this.heroes$.update( hero.$key, { "name" : hero.name  } );
   }
+
+  create(name: string): firebase.Promise<any> {
+    return this.heroes$.push({ "name" : name  });
+  }
+
+  deleteHero(hero: Hero): firebase.Promise<any> {
+    return this.heroes$.remove(hero.$key);
+  }
 }

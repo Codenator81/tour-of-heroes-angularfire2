@@ -22,6 +22,22 @@ export class HeroesComponent implements OnInit {
     this.heroes = this.heroService.visibleHeroes$;
   }
 
+  add(name: string): void {
+    name = name.trim();
+    if (!name) { return; }
+    this.heroService.create(name)
+      .then(() => {
+        this.selectedHero = null;
+      });
+  }
+
+  deleteHero(hero:Hero): void {
+    this.heroService.deleteHero(hero)
+      .then(() => {
+        if (this.selectedHero === hero) { this.selectedHero = null; }
+    });
+  }
+
   onSelect(hero: Hero): void {
     this.selectedHero = hero;
   }

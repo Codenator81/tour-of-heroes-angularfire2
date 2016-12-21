@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 
 import { Hero } from './hero';
 import { HeroService } from './hero.service';
+import {Observable} from "rxjs";
 
 @Component({
   selector: 'my-heroes',
@@ -10,19 +11,15 @@ import { HeroService } from './hero.service';
   styleUrls: [ './heroes.component.scss' ]
 })
 export class HeroesComponent implements OnInit {
-  heroes: Hero[];
+  heroes: Observable<Hero[]>;
   selectedHero: Hero;
 
   constructor(
     private router: Router,
     private heroService: HeroService) { }
 
-  getHeroes(): void {
-    this.heroService.getHeroes().subscribe(heroes => this.heroes = heroes);
-  }
-
   ngOnInit(): void {
-    this.getHeroes();
+    this.heroes = this.heroService.visibleHeroes$;
   }
 
   onSelect(hero: Hero): void {
@@ -30,6 +27,6 @@ export class HeroesComponent implements OnInit {
   }
 
   gotoDetail(): void {
-    this.router.navigate(['/detail', this.selectedHero.id]);
+    this.router.navigate(['/detail', this.selectedHero.$key]);
   }
 }

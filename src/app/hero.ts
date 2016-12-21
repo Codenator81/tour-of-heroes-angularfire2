@@ -1,4 +1,4 @@
 export class Hero {
-  id: string;
+  $key?: string;
   name: string;
 }

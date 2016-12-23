@@ -1,11 +1,17 @@
-<div *ngIf="hero">
-  <h2>{{hero.name}} details!</h2>
-  <div>
-    <label>id: </label>{{hero.$key}}</div>
-  <div>
-    <label>name: </label>
-    <input [(ngModel)]="hero.name" placeholder="name" />
-  </div>
-  <button (click)="save()">Save</button>
-  <button (click)="goBack()">Back</button>
-</div>
+
+<md-card *ngIf="hero">
+  <md-card-header>
+    <md-card-title>
+      <h2>{{hero.name}} details!</h2>
+    </md-card-title>
+  </md-card-header>
+  <md-card-content>
+    <md-input-container>
+      <input md-input color="warn" [(ngModel)]="hero.name" placeholder="Hero name:">
+    </md-input-container>
+  </md-card-content>
+  <md-card-actions>
+      <button md-raised-button color="primary" (click)="save()">Save</button>
+      <button md-raised-button color="accent" (click)="goBack()">Back</button>
+  </md-card-actions>
+</md-card>

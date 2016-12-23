@@ -1,22 +1,35 @@
-<div>
-  <label>Hero name:</label> <input #heroName />
-  <button (click)="add(heroName.value); heroName.value=''">
-    Add
-  </button>
-</div>
-<h2>My Heroes</h2>
-<ul class="heroes">
-  <li *ngFor="let hero of heroes | async"
-    [class.selected]="hero === selectedHero"
-    (click)="onSelect(hero)">
-    <span class="badge">{{hero.$key}}</span> {{hero.name}}
-    <button class="delete"
-            (click)="deleteHero(hero); $event.stopPropagation()">x</button>
-  </li>
-</ul>
+<md-card>
+  <md-input-container>
+    <input md-input color="warn" #heroName placeholder="Hero name:">
+  </md-input-container>
+  <button color="warn"
+          md-mini-fab
+          (click)="add(heroName.value); heroName.value=''"
+  ><md-icon>add</md-icon></button>
+</md-card>
+<md-card>
+  <md-card-header>
+    <md-card-title><h2>My Heroes</h2></md-card-title>
+  </md-card-header>
+  <md-card-content>
+
+  </md-card-content>
+  <md-nav-list>
+    <md-list-item
+      *ngFor="let hero of heroes | async"
+      [class.selected]="hero === selectedHero"
+      (click)="onSelect(hero)">
+      <span md-line>{{hero.name}}</span>
+      <button color="warn"
+              md-mini-fab
+              (click)="deleteHero(hero);
+              $event.stopPropagation()"><md-icon>delete</md-icon></button>
+    </md-list-item>
+  </md-nav-list>
+</md-card>
 <div *ngIf="selectedHero">
   <h2>
     {{selectedHero.name | uppercase}} is my hero
   </h2>
-  <button (click)="gotoDetail()">View Details</button>
+  <button md-raised-button color="primary" (click)="gotoDetail()">View Details</button>
 </div>

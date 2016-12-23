@@ -15,6 +15,7 @@ h4 {
 md-grid-tile {
   color: #eee;
   background-color: #607D8B;
+  min-width: 150px;
   h4 {
     padding: 5px;
   }
@@ -23,5 +24,23 @@ md-grid-tile:hover {
   background-color: #EEE;
   cursor: pointer;
   color: #607d8b;
+}
+@media only screen and (max-width: 760px) {
+  md-grid-list {
+    height: auto!important;
+  }
+  md-grid-tile {
+    width: calc(50% - 4px)!important;
+    display: inline-block;
+    position: relative;
+    left: 0!important;
+    margin: 0 2px;
+  }
+}
+@media only screen and (max-width: 480px) {
+  md-grid-tile {
+    width: 100% !important;
+    margin: 0;
+  }
 }
 

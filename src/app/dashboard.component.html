@@ -1,7 +1,11 @@
 <h3>Top Heroes</h3>
-<md-grid-list cols="4" rowHeight="120px" gutterSize="5px">
+<md-grid-list cols="4"
+              rowHeight="120px"
+              gutterSize="5px"
+>
   <md-grid-tile
-    *ngFor="let hero of heroes" [routerLink]="['/detail', hero.$key]">
+    *ngFor="let hero of heroes"
+    [routerLink]="['/detail', hero.$key]">
     <h4>{{hero.name}}</h4>
   </md-grid-tile>
 </md-grid-list>

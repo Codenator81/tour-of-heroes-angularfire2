@@ -2,6 +2,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
+import { MaterialModule } from '@angular/material';
+import 'hammerjs';
 
 import { AngularFireModule } from 'angularfire2';
 
@@ -28,7 +30,8 @@ import { HeroSearchComponent } from './hero-search/hero-search.component';
     FormsModule,
     HttpModule,
     AppRoutingModule,
-    AngularFireModule.initializeApp(firebaseConfig)
+    AngularFireModule.initializeApp(firebaseConfig),
+    MaterialModule.forRoot()
   ],
   providers: [ HeroService ],
   bootstrap: [AppComponent]

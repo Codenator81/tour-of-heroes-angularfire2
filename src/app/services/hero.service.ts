@@ -1,33 +1,33 @@
 import { Injectable } from '@angular/core';
-import {AngularFire, FirebaseListObservable} from "angularfire2";
-import {Observable, ReplaySubject} from "rxjs";
-import {Hero} from "./hero";
+import { AngularFire, FirebaseListObservable } from "angularfire2";
+import { Observable } from "rxjs";
+import { IHero, Hero } from "../models/hero";
 
 @Injectable()
 export class HeroService {
 
-  visibleHeroes$: Observable<Hero[]>;
+  visibleHeroes$: Observable<IHero[]>;
 
-  private heroes$: FirebaseListObservable<Hero[]>;
+  private heroes$: FirebaseListObservable<IHero[]>;
 
   constructor(private af:AngularFire) {
     this.heroes$ = af.database.list('heroes');
     this.visibleHeroes$ = this.heroes$;
   }
 
-  getHero(id: number) : Observable<Hero> {
+  getHero(id: number) : Observable<IHero> {
     return this.af.database.object(`heroes/${id}`);
   }
 
-  update(hero: Hero): firebase.Promise<any> {
+  update(hero: IHero): firebase.Promise<any> {
      return this.heroes$.update( hero.$key, { "name" : hero.name  } );
   }
 
   create(name: string): firebase.Promise<any> {
-    return this.heroes$.push({ "name" : name  });
+    return this.heroes$.push(new Hero(name));
   }
 
-  deleteHero(hero: Hero): firebase.Promise<any> {
+  deleteHero(hero: IHero): firebase.Promise<any> {
     return this.heroes$.remove(hero.$key);
   }
 }

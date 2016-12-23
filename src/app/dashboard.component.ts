@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
-import { Hero } from './hero';
-import { HeroService } from './hero.service';
+import { IHero } from './models/hero';
+import { HeroService } from './services/hero.service';
 import {Observable} from "rxjs";
 
 @Component({
@@ -11,7 +11,7 @@ import {Observable} from "rxjs";
 })
 export class DashboardComponent implements OnInit {
 
-  heroes: Hero[] = [];
+  heroes: IHero[] = [];
 
   constructor(private heroService: HeroService) { }
 

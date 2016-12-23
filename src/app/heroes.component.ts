@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { Hero } from './hero';
-import { HeroService } from './hero.service';
+import { IHero } from './models/hero';
+import { HeroService } from './services/hero.service';
 import {Observable} from "rxjs";
 
 @Component({
@@ -11,8 +11,8 @@ import {Observable} from "rxjs";
   styleUrls: [ './heroes.component.scss' ]
 })
 export class HeroesComponent implements OnInit {
-  heroes: Observable<Hero[]>;
-  selectedHero: Hero;
+  heroes: Observable<IHero[]>;
+  selectedHero: IHero;
 
   constructor(
     private router: Router,
@@ -31,14 +31,14 @@ export class HeroesComponent implements OnInit {
       });
   }
 
-  deleteHero(hero:Hero): void {
+  deleteHero(hero:IHero): void {
     this.heroService.deleteHero(hero)
       .then(() => {
         if (this.selectedHero === hero) { this.selectedHero = null; }
     });
   }
 
-  onSelect(hero: Hero): void {
+  onSelect(hero: IHero): void {
     this.selectedHero = hero;
   }
 

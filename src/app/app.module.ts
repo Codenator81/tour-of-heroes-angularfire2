@@ -14,7 +14,7 @@ import {AppRoutingModule} from "./app-routing.module";
 import {DashboardComponent} from "./dashboard.component";
 import {HeroDetailComponent} from "./hero-detail.component";
 import {HeroesComponent} from "./heroes.component";
-import {HeroService} from "./hero.service";
+import {HeroService} from "./services/hero.service";
 import {firebaseConfig} from "../environments/firebase.config";
 import { HeroSearchComponent } from './hero-search/hero-search.component';
 

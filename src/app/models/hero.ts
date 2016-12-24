@@ -11,6 +11,7 @@ export interface IFirebaseHero extends IHero{
   $key?: string;
 }
 
+//Init with new Hero({}) and new Hero produce error. For this purpose created emptyHero ))
 export class Hero implements IHero{
   public name: string;
   public power: string;

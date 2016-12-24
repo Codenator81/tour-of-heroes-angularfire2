@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
-import {Hero, IFirebaseHero} from './models/hero';
+import {Hero, IFirebaseHero, emptyHero} from './models/hero';
 import { HeroService } from './services/hero.service';
 import {Observable} from "rxjs";
 import {MdDialog, MdDialogRef} from "@angular/material";
@@ -14,9 +14,8 @@ import {HeroNameDialogComponent} from "./hero-name-dialog/hero-name-dialog.compo
 })
 export class HeroesComponent implements OnInit {
   heroes: Observable<IFirebaseHero[]>;
-  selectedHero: IFirebaseHero;
 
-  heroModel: Hero = new Hero('','');
+  heroModel: Hero = new Hero(emptyHero);
 
   powers = [];
 
@@ -35,27 +34,17 @@ export class HeroesComponent implements OnInit {
 
   onSubmit(isValid): void {
     if (isValid) {
-      if (!this.heroModel.alterEgo) {
-          this.heroModel.alterEgo = '';
-      }
-      this.heroService.create(this.heroModel)
+      const hero = new Hero(this.heroModel);
+      this.heroService.create(hero)
         .then(() => {
-          this.heroModel = new Hero('', '', '');
-
+          this.heroModel = new Hero(emptyHero);
         });
     }
   }
 
   deleteHero(hero:IFirebaseHero): void {
-    this.heroService.deleteHero(hero)
-      .then(() => {
-        if (this.selectedHero === hero) { this.selectedHero = null; }
-    });
+    this.heroService.deleteHero(hero);
   }
-
-  // gotoDetail(): void {
-  //   this.router.navigate(['/detail', this.hero.$key]);
-  // }
 
   openDialog(hero: IFirebaseHero) {
     this.dialogRef = this.dialog.open(HeroNameDialogComponent);

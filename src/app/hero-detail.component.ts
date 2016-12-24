@@ -2,7 +2,7 @@ import 'rxjs/add/operator/switchMap';
 import { Component, OnInit }      from '@angular/core';
 import {ActivatedRoute, Params, Router} from '@angular/router';
 
-import {IFirebaseHero}         from './models/hero';
+import {IFirebaseHero, Hero}         from './models/hero';
 import { HeroService }  from './services/hero.service';
 @Component({
   selector: 'my-hero-detail',
@@ -27,11 +27,8 @@ export class HeroDetailComponent implements OnInit {
   }
   onSubmit(heroForm) {
     if (heroForm.form.valid) {
-      if (!heroForm.value.alterEgo) {
-        heroForm.value.alterEgo = '';
-      }
-
-      this.heroService.update(this.hero, heroForm.value)
+      const hero = new Hero(heroForm.value);
+      this.heroService.update(this.hero, hero)
         .then(() => this.goBack());
     }
   }

@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import {Router} from "@angular/router";
 
 import {HeroService} from "../services/hero.service";
-import {IHero} from "../models/hero";
+import {IFirebaseHero} from "../models/hero";
 
 @Component({
   selector: 'hero-search',
@@ -11,7 +11,7 @@ import {IHero} from "../models/hero";
 })
 export class HeroSearchComponent {
 
-  heroes: IHero[] = [];
+  heroes: IFirebaseHero[] = [];
 
   constructor(
     private heroService: HeroService,
@@ -27,7 +27,7 @@ export class HeroSearchComponent {
     }
   }
 
-  gotoDetail(hero: IHero): void {
+  gotoDetail(hero: IFirebaseHero): void {
     let link = ['/detail', hero.$key];
     this.router.navigate(link);
   }

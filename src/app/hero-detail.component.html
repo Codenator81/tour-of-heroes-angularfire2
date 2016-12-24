@@ -1,4 +1,4 @@
-
+<form (ngSubmit)="onSubmit(heroForm)" #heroForm="ngForm">
 <md-card *ngIf="hero">
   <md-card-header>
     <md-card-title>
@@ -7,11 +7,35 @@
   </md-card-header>
   <md-card-content>
     <md-input-container>
-      <input md-input color="warn" [(ngModel)]="hero.name" placeholder="Hero name:">
+      <input md-input
+             [(ngModel)]="hero.name"
+             name="name"
+             placeholder="Hero name"
+             #name="ngModel"
+             required>
+      <md-hint *ngIf="!name.valid && name.touched" class="error-message" align="start">Hero name required</md-hint>
     </md-input-container>
+    <br><br>
+    <md-input-container>
+      <input md-input
+             [(ngModel)]="hero.alterEgo"
+             name="alterEgo"
+             placeholder="Alter Ego"
+      >
+    </md-input-container>
+    <br><br>
+    <md-select placeholder="Power"
+               [(ngModel)]="hero.power"
+               name="power"
+               required>
+      <md-option *ngFor="let pow of powers" [value]="pow">
+        {{ pow }}
+      </md-option>
+    </md-select>
   </md-card-content>
   <md-card-actions>
-      <button md-raised-button color="primary" (click)="save()">Save</button>
+      <button type="submit" md-raised-button color="primary">Save</button>
       <button md-raised-button color="accent" (click)="goBack()">Back</button>
   </md-card-actions>
 </md-card>
+</form>

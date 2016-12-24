@@ -1,7 +1,5 @@
 @import '~@angular/material/core/theming/prebuilt/indigo-pink';
 
-.container {
-  margin: 50px auto;
-  display: block;
-  width: 650px;
+.error-message {
+  color: red;
 }

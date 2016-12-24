@@ -1,16 +1,24 @@
 import * as firebase from 'firebase';
 
 export interface IHero {
-  $key?: string;
   name: string;
-  createdAt: Object;
+  power: string;
+  alterEgo?: string;
 }
 
-export class Hero implements IHero {
-  name: string;
-  createdAt: Object = firebase.database.ServerValue.TIMESTAMP;
+export interface IFirebaseHero extends IHero{
+  $key?: string;
+}
 
-  constructor(name: string) {
-    this.name = name;
+export class Hero implements IHero{
+  private createdAt: Object = firebase.database.ServerValue.TIMESTAMP;
+  constructor(public name: string,
+              public power: string,
+              public alterEgo?: string,
+  ) {
+
   }
 }
+
+export const Powers = ['Really Smart', 'Super Flexible',
+  'Super Hot', 'Weather Changer'];

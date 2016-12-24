@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { IHero } from './models/hero';
+import {Hero, IFirebaseHero} from './models/hero';
 import { HeroService } from './services/hero.service';
 import {Observable} from "rxjs";
 
@@ -11,8 +11,12 @@ import {Observable} from "rxjs";
   styleUrls: [ './heroes.component.scss' ]
 })
 export class HeroesComponent implements OnInit {
-  heroes: Observable<IHero[]>;
-  selectedHero: IHero;
+  heroes: Observable<IFirebaseHero[]>;
+  selectedHero: IFirebaseHero;
+
+  heroModel: Hero = new Hero('','');
+
+  powers = [];
 
   constructor(
     private router: Router,
@@ -20,25 +24,30 @@ export class HeroesComponent implements OnInit {
 
   ngOnInit(): void {
     this.heroes = this.heroService.visibleHeroes$;
+    this.powers = this.heroService.getPower();
   }
 
-  add(name: string): void {
-    name = name.trim();
-    if (!name) { return; }
-    this.heroService.create(name)
-      .then(() => {
-        this.selectedHero = null;
-      });
+  onSubmit(isValid): void {
+    if (isValid) {
+      if (!this.heroModel.alterEgo) {
+          this.heroModel.alterEgo = '';
+      }
+      this.heroService.create(this.heroModel)
+        .then(() => {
+          this.heroModel = new Hero('', '', '');
+
+        });
+    }
   }
 
-  deleteHero(hero:IHero): void {
+  deleteHero(hero:IFirebaseHero): void {
     this.heroService.deleteHero(hero)
       .then(() => {
         if (this.selectedHero === hero) { this.selectedHero = null; }
     });
   }
 
-  onSelect(hero: IHero): void {
+  onSelect(hero: IFirebaseHero): void {
     this.selectedHero = hero;
   }
 

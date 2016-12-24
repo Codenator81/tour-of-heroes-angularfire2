@@ -3,7 +3,7 @@ import { Component, OnInit }      from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import { Location }               from '@angular/common';
 
-import { IHero }         from './models/hero';
+import {IFirebaseHero, Hero}         from './models/hero';
 import { HeroService }  from './services/hero.service';
 @Component({
   selector: 'my-hero-detail',
@@ -11,7 +11,8 @@ import { HeroService }  from './services/hero.service';
   styleUrls: [ './hero-detail.component.scss' ]
 })
 export class HeroDetailComponent implements OnInit {
-  hero: IHero;
+  hero: IFirebaseHero;
+  powers = [];
 
   constructor(
     private heroService: HeroService,
@@ -23,11 +24,11 @@ export class HeroDetailComponent implements OnInit {
     this.route.params
       .switchMap((params: Params) => this.heroService.getHero(params['id']))
       .subscribe(hero => this.hero = hero);
+    this.powers = this.heroService.getPower();
   }
-
-  save(): void {
-    this.heroService.update(this.hero)
-      .then(() => this.goBack());
+  onSubmit(heroForm) {
+    this.heroService.update(this.hero, heroForm.value)
+    .then(() => this.goBack());
   }
 
   goBack(): void {

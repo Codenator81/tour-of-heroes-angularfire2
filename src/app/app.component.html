@@ -1,6 +1,17 @@
-<h1>{{title}}</h1>
-<nav>
-  <a md-raised-button color="accent" routerLink="/dashboard" routerLinkActive="active">Dashboard</a>
-  <a md-raised-button color="accent" routerLink="/heroes" routerLinkActive="active">Heroes</a>
-</nav>
+<md-toolbar color="primary">
+  <button md-icon-button [mdMenuTriggerFor]="menu">
+    <md-icon>menu</md-icon>
+  </button>
+  <md-menu #menu="mdMenu">
+    <a md-menu-item routerLink="/dashboard">
+      <md-icon>dialpad</md-icon>
+      <span>Dashboard</span>
+    </a>
+    <a md-menu-item routerLink="/heroes">
+      <md-icon>voicemail</md-icon>
+      <span>Heroes</span>
+    </a>
+  </md-menu>
+<span class="title">{{title}}</span>
+</md-toolbar>
 <router-outlet></router-outlet>

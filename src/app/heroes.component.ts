@@ -4,6 +4,8 @@ import { Router } from '@angular/router';
 import {Hero, IFirebaseHero} from './models/hero';
 import { HeroService } from './services/hero.service';
 import {Observable} from "rxjs";
+import {MdDialog, MdDialogRef} from "@angular/material";
+import {HeroNameDialogComponent} from "./hero-name-dialog/hero-name-dialog.component";
 
 @Component({
   selector: 'my-heroes',
@@ -18,9 +20,13 @@ export class HeroesComponent implements OnInit {
 
   powers = [];
 
+  dialogRef: MdDialogRef<HeroNameDialogComponent>;
+
   constructor(
     private router: Router,
-    private heroService: HeroService) { }
+    private heroService: HeroService,
+    public dialog: MdDialog
+  ) { }
 
   ngOnInit(): void {
     this.heroes = this.heroService.visibleHeroes$;
@@ -47,11 +53,18 @@ export class HeroesComponent implements OnInit {
     });
   }
 
-  onSelect(hero: IFirebaseHero): void {
-    this.selectedHero = hero;
-  }
+  // gotoDetail(): void {
+  //   this.router.navigate(['/detail', this.hero.$key]);
+  // }
 
-  gotoDetail(): void {
-    this.router.navigate(['/detail', this.selectedHero.$key]);
+  openDialog(hero: IFirebaseHero) {
+    this.dialogRef = this.dialog.open(HeroNameDialogComponent);
+    this.dialogRef.componentInstance.hero = hero;
+    this.dialogRef.afterClosed().subscribe(result => {
+      if (result == 'show') {
+        this.dialogRef = null;
+        this.router.navigate(['/detail', hero.$key]);
+      }
+    });
   }
 }

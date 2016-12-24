@@ -1,9 +1,8 @@
 import 'rxjs/add/operator/switchMap';
 import { Component, OnInit }      from '@angular/core';
-import { ActivatedRoute, Params } from '@angular/router';
-import { Location }               from '@angular/common';
+import {ActivatedRoute, Params, Router} from '@angular/router';
 
-import {IFirebaseHero, Hero}         from './models/hero';
+import {IFirebaseHero}         from './models/hero';
 import { HeroService }  from './services/hero.service';
 @Component({
   selector: 'my-hero-detail',
@@ -17,7 +16,7 @@ export class HeroDetailComponent implements OnInit {
   constructor(
     private heroService: HeroService,
     private route: ActivatedRoute,
-    private location: Location
+    private router: Router,
   ) {}
 
   ngOnInit(): void {
@@ -27,11 +26,17 @@ export class HeroDetailComponent implements OnInit {
     this.powers = this.heroService.getPower();
   }
   onSubmit(heroForm) {
-    this.heroService.update(this.hero, heroForm.value)
-    .then(() => this.goBack());
+    if (heroForm.form.valid) {
+      if (!heroForm.value.alterEgo) {
+        heroForm.value.alterEgo = '';
+      }
+
+      this.heroService.update(this.hero, heroForm.value)
+        .then(() => this.goBack());
+    }
   }
 
   goBack(): void {
-    this.location.back();
+    this.router.navigateByUrl("heroes");
   }
 }

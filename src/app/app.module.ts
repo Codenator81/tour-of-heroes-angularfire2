@@ -17,6 +17,7 @@ import {HeroesComponent} from "./heroes.component";
 import {HeroService} from "./services/hero.service";
 import {firebaseConfig} from "../environments/firebase.config";
 import { HeroSearchComponent } from './hero-search/hero-search.component';
+import { HeroNameDialogComponent } from './hero-name-dialog/hero-name-dialog.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import { HeroSearchComponent } from './hero-search/hero-search.component';
     HeroDetailComponent,
     HeroesComponent,
     HeroSearchComponent,
+    HeroNameDialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -36,6 +38,7 @@ import { HeroSearchComponent } from './hero-search/hero-search.component';
     FlexLayoutModule.forRoot()
   ],
   providers: [ HeroService ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [HeroNameDialogComponent]
 })
 export class AppModule { }

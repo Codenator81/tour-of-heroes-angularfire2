@@ -49,7 +49,7 @@
     <md-list-item
       *ngFor="let hero of heroes | async"
       [class.selected]="hero === selectedHero"
-      (click)="onSelect(hero)">
+      (click)="openDialog(hero)">
       <span md-line>{{hero.name}}</span>
       <button color="warn"
               md-mini-fab
@@ -58,9 +58,3 @@
     </md-list-item>
   </md-nav-list>
 </md-card>
-<div *ngIf="selectedHero">
-  <h2>
-    {{selectedHero.name | uppercase}} is my hero
-  </h2>
-  <button md-raised-button color="primary" (click)="gotoDetail()">View Details</button>
-</div>

@@ -34,8 +34,12 @@
     </md-select>
   </md-card-content>
   <md-card-actions>
-      <button type="submit" md-raised-button color="primary">Save</button>
-      <button md-raised-button color="accent" (click)="goBack()">Back</button>
+      <button
+        [disabled]="!heroForm.form.valid"
+        type="submit"
+        md-raised-button
+        color="primary">Save</button>
+      <button type="button" md-raised-button color="accent" (click)="goBack()">Back</button>
   </md-card-actions>
 </md-card>
 </form>

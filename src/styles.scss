@@ -1,5 +1,8 @@
-@import '~@angular/material/core/theming/prebuilt/indigo-pink';
-
+@import '~@angular/material/core/theming/prebuilt/pink-bluegrey';
+body {
+  background-color: #212121;
+  color: moccasin;
+}
 .error-message {
   color: red;
 }

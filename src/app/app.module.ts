@@ -10,6 +10,7 @@ import { AngularFireModule } from 'angularfire2';
 
 import { AppComponent } from './app.component';
 import {AppRoutingModule} from "./app-routing.module";
+import { SharedModule } from './shared/shared.module';
 
 import {DashboardComponent} from "./hero/dashboard.component";
 import {HeroDetailComponent} from "./hero/hero-detail.component";
@@ -20,8 +21,6 @@ import { HeroSearchComponent } from './hero/hero-search/hero-search.component';
 import { HeroNameDialogComponent } from './hero/hero-name-dialog/hero-name-dialog.component';
 import {PowerListComponent} from "./power/power-list/power-list.component";
 import { NewHeroComponent } from './hero/new-hero/new-hero.component';
-import {HighlightDirective} from "../directives/highlight.directive";
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -31,8 +30,7 @@ import {HighlightDirective} from "../directives/highlight.directive";
     HeroSearchComponent,
     HeroNameDialogComponent,
     PowerListComponent,
-    NewHeroComponent,
-    HighlightDirective
+    NewHeroComponent
   ],
   imports: [
     BrowserModule,
@@ -41,7 +39,8 @@ import {HighlightDirective} from "../directives/highlight.directive";
     AppRoutingModule,
     AngularFireModule.initializeApp(firebaseConfig),
     MaterialModule.forRoot(),
-    FlexLayoutModule.forRoot()
+    FlexLayoutModule.forRoot(),
+    SharedModule
   ],
   providers: [ HeroService ],
   bootstrap: [AppComponent],

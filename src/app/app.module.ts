@@ -19,6 +19,7 @@ import {firebaseConfig} from "../environments/firebase.config";
 import { HeroSearchComponent } from './hero/hero-search/hero-search.component';
 import { HeroNameDialogComponent } from './hero/hero-name-dialog/hero-name-dialog.component';
 import {PowerListComponent} from "./power/power-list/power-list.component";
+import { NewHeroComponent } from './hero/new-hero/new-hero.component';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import {PowerListComponent} from "./power/power-list/power-list.component";
     HeroSearchComponent,
     HeroNameDialogComponent,
     PowerListComponent,
+    NewHeroComponent,
   ],
   imports: [
     BrowserModule,

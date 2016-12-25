@@ -1,43 +1,7 @@
-<md-slide-toggle [(ngModel)]="showHero">
-  Show hero form
-</md-slide-toggle>
-<md-card *ngIf="showHero">
-  <md-card-title>
-    <h4>Add new hero</h4>
-  </md-card-title>
-  <form (ngSubmit)="onSubmit(heroForm.form.valid); heroForm.reset()" #heroForm="ngForm">
-  <md-input-container>
-    <input md-input
-           [(ngModel)]="heroModel.name"
-           name="name"
-           placeholder="Hero name"
-           #name="ngModel"
-           required>
-    <md-hint *ngIf="!name.valid && name.touched" class="error-message" align="start">Hero name required</md-hint>
-  </md-input-container>
-  <md-input-container>
-    <input md-input
-           [(ngModel)]="heroModel.alterEgo"
-           name="alterEgo"
-           placeholder="Alter Ego"
-           >
-  </md-input-container>
-  <md-select placeholder="Power"
-             [(ngModel)]="heroModel.power"
-             name="power"
-             required>
-    <md-option *ngFor="let pow of powers" [value]="pow">
-      {{ pow }}
-    </md-option>
-  </md-select>
-    <br><br>
-  <button type="submit"
-          color="primary"
-          md-mini-fab
-          [disabled]="!heroForm.form.valid"
-  ><md-icon>add</md-icon></button>
-  </form>
-</md-card>
+<app-new-hero (saveRequest)="onSave($event)"
+              [hero]="heroModel"
+              [powers]="powers"
+></app-new-hero>
 <md-card>
   <md-card-header>
     <md-card-title><h2>My Heroes</h2></md-card-title>

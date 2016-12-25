@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import {Hero, IFirebaseHero, emptyHero} from '../models/hero';
 import { HeroService } from '../services/hero.service';
 import {Observable} from "rxjs";
-import {MdDialog, MdDialogRef} from "@angular/material";
+import {MdDialog, MdDialogRef, MdSnackBar} from "@angular/material";
 import {HeroNameDialogComponent} from "./hero-name-dialog/hero-name-dialog.component";
 
 @Component({
@@ -13,18 +13,17 @@ import {HeroNameDialogComponent} from "./hero-name-dialog/hero-name-dialog.compo
   styleUrls: [ './heroes.component.scss' ]
 })
 export class HeroesComponent implements OnInit {
+
   heroes: Observable<IFirebaseHero[]>;
-
   heroModel: Hero = new Hero(emptyHero);
-
-  powers = [];
-
+  powers: Array<string>;
   dialogRef: MdDialogRef<HeroNameDialogComponent>;
 
   constructor(
     private router: Router,
     private heroService: HeroService,
-    public dialog: MdDialog
+    public dialog: MdDialog,
+    public snackBar: MdSnackBar
   ) { }
 
   ngOnInit(): void {
@@ -32,14 +31,13 @@ export class HeroesComponent implements OnInit {
     this.powers = this.heroService.getPower();
   }
 
-  onSubmit(isValid): void {
-    if (isValid) {
-      const hero = new Hero(this.heroModel);
-      this.heroService.create(hero)
+  onSave(hero: Hero): void {
+      const heroIns = new Hero(hero);
+      this.heroService.create(heroIns)
         .then(() => {
           this.heroModel = new Hero(emptyHero);
+          this.showFlashMessage('Hero with name ' + heroIns.name +' saved', 'SAVE');
         });
-    }
   }
 
   deleteHero(hero:IFirebaseHero): void {
@@ -54,6 +52,12 @@ export class HeroesComponent implements OnInit {
         this.dialogRef = null;
         this.router.navigate(['/detail', hero.$key]);
       }
+    });
+  }
+
+  showFlashMessage(message: string, action: string) {
+    this.snackBar.open(message, action, {
+      duration: 3500,
     });
   }
 }

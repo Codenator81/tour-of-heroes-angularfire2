@@ -1,9 +1,9 @@
 import 'rxjs/add/operator/switchMap';
-import { Component, OnInit }      from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Params, Router} from '@angular/router';
 
-import {IFirebaseHero, Hero}         from './models/hero';
-import { HeroService }  from './services/hero.service';
+import {IFirebaseHero, Hero} from '../models/hero';
+import {HeroService} from '../services/hero.service';
 @Component({
   selector: 'my-hero-detail',
   templateUrl: './hero-detail.component.html',

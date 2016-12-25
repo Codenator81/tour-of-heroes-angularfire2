@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import {Router} from "@angular/router";
 
-import {HeroService} from "../services/hero.service";
-import {IFirebaseHero} from "../models/hero";
+import {HeroService} from "../../services/hero.service";
+import {IFirebaseHero} from "../../models/hero";
 
 @Component({
   selector: 'hero-search',

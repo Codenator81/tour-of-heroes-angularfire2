@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import {MdDialogRef} from "@angular/material";
-import {IFirebaseHero} from "../models/hero";
+import {IFirebaseHero} from "../../models/hero";
 
 @Component({
   selector: 'app-hero-name-dialog',

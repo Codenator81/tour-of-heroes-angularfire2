@@ -11,13 +11,14 @@ import { AngularFireModule } from 'angularfire2';
 import { AppComponent } from './app.component';
 import {AppRoutingModule} from "./app-routing.module";
 
-import {DashboardComponent} from "./dashboard.component";
-import {HeroDetailComponent} from "./hero-detail.component";
-import {HeroesComponent} from "./heroes.component";
+import {DashboardComponent} from "./hero/dashboard.component";
+import {HeroDetailComponent} from "./hero/hero-detail.component";
+import {HeroesComponent} from "./hero/heroes.component";
 import {HeroService} from "./services/hero.service";
 import {firebaseConfig} from "../environments/firebase.config";
-import { HeroSearchComponent } from './hero-search/hero-search.component';
-import { HeroNameDialogComponent } from './hero-name-dialog/hero-name-dialog.component';
+import { HeroSearchComponent } from './hero/hero-search/hero-search.component';
+import { HeroNameDialogComponent } from './hero/hero-name-dialog/hero-name-dialog.component';
+import {PowerListComponent} from "./power/power-list/power-list.component";
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import { HeroNameDialogComponent } from './hero-name-dialog/hero-name-dialog.com
     HeroesComponent,
     HeroSearchComponent,
     HeroNameDialogComponent,
+    PowerListComponent,
   ],
   imports: [
     BrowserModule,

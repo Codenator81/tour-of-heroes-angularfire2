@@ -20,6 +20,7 @@ import { HeroSearchComponent } from './hero/hero-search/hero-search.component';
 import { HeroNameDialogComponent } from './hero/hero-name-dialog/hero-name-dialog.component';
 import {PowerListComponent} from "./power/power-list/power-list.component";
 import { NewHeroComponent } from './hero/new-hero/new-hero.component';
+import {HighlightDirective} from "../directives/highlight.directive";
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import { NewHeroComponent } from './hero/new-hero/new-hero.component';
     HeroNameDialogComponent,
     PowerListComponent,
     NewHeroComponent,
+    HighlightDirective
   ],
   imports: [
     BrowserModule,

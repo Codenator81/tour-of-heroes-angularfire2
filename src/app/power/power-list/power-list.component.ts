@@ -1,4 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component,
+  OnInit,
+  trigger,
+  state,
+  style,
+  transition,
+  animate } from '@angular/core';
 
 @Component({
   selector: 'app-power-list',
@@ -11,5 +17,4 @@ export class PowerListComponent implements OnInit {
 
   ngOnInit() {
   }
-
 }

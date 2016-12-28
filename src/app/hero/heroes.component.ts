@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import {Component,OnInit} from '@angular/core';
+import {Router} from '@angular/router';
 
 import {Hero, IFirebaseHero, emptyHero} from '../models/hero';
-import { HeroService } from '../services/hero.service';
+import {HeroService} from '../services/hero.service';
 import {Observable} from "rxjs";
 import {MdDialog, MdDialogRef, MdSnackBar} from "@angular/material";
 import {HeroNameDialogComponent} from "./hero-name-dialog/hero-name-dialog.component";

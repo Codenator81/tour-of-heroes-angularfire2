@@ -11,7 +11,8 @@ const routes: Routes = [
   { path: 'dashboard',  component: DashboardComponent },
   { path: 'detail/:id', component: HeroDetailComponent },
   { path: 'heroes',     component: HeroesComponent },
-  { path: 'powers',     component: PowerListComponent }
+  { path: 'powers',     component: PowerListComponent },
+  { path: 'anim',       loadChildren: 'app/anim/anim.module#AnimModule' }
 ];
 
 @NgModule({

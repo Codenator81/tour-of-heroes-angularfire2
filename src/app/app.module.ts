@@ -18,6 +18,7 @@ import {HeroNameDialogComponent}  from './hero/hero-name-dialog/hero-name-dialog
 import {PowerListComponent}       from "./power/power-list/power-list.component";
 import {NewHeroComponent}         from './hero/new-hero/new-hero.component';
 import {SharedModule} from "./shared/shared.module";
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -27,7 +28,8 @@ import {SharedModule} from "./shared/shared.module";
     HeroSearchComponent,
     HeroNameDialogComponent,
     PowerListComponent,
-    NewHeroComponent
+    NewHeroComponent,
+    PageNotFoundComponent
   ],
   imports: [
     BrowserModule,

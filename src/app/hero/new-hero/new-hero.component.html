@@ -1,7 +1,7 @@
-<md-slide-toggle [(ngModel)]="showHero">
+<md-slide-toggle [(ngModel)]="showHero" (change)="switchState()" >
   Show hero form
 </md-slide-toggle>
-<md-card *ngIf="showHero">
+<md-card [@flyInOut]="flyState" *ngIf="showHero">
   <md-card-title>
     <h4>Add new hero</h4>
   </md-card-title>

@@ -8,13 +8,13 @@ import {PowerListComponent} from "./power/power-list/power-list.component";
 import {PageNotFoundComponent} from "./page-not-found/page-not-found.component";
 
 const routes: Routes = [
-  { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
   { path: 'dashboard',  component: DashboardComponent },
   { path: 'detail/:id', component: HeroDetailComponent },
   { path: 'heroes',     component: HeroesComponent },
   { path: 'powers',     component: PowerListComponent },
   { path: 'anim',       loadChildren: 'app/anim/anim.module#AnimModule' },
-  { path: '**', component: PageNotFoundComponent }
+  { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
+  { path: '**', component: PageNotFoundComponent },
 ];
 
 @NgModule({

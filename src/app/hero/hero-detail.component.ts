@@ -1,17 +1,25 @@
 import 'rxjs/add/operator/switchMap';
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, HostBinding} from '@angular/core';
 import {ActivatedRoute, Params, Router} from '@angular/router';
 
 import {IFirebaseHero, Hero} from '../models/hero';
 import {HeroService} from '../services/hero.service';
+import { slideInDownAnimation } from '../animations'
+
+
 @Component({
   selector: 'my-hero-detail',
   templateUrl: './hero-detail.component.html',
-  styleUrls: [ './hero-detail.component.scss' ]
+  styleUrls: [ './hero-detail.component.scss' ],
+  animations: [slideInDownAnimation]
 })
+
 export class HeroDetailComponent implements OnInit {
   hero: IFirebaseHero;
   powers = [];
+
+  @HostBinding('@routeAnimation') routeAnimation = true;
+  @HostBinding('style.display')   display = 'block';
 
   constructor(
     private heroService: HeroService,

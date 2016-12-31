@@ -10,7 +10,7 @@
 
   </md-card-content>
   <md-nav-list>
-    <md-list-item
+    <md-list-item [class.selected]="isSelected(hero)"
       *ngFor="let hero of heroes | async"
       (click)="openDialog(hero)">
       <span md-line>{{hero.name}}</span>

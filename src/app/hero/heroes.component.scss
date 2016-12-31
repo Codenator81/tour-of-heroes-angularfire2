@@ -1,0 +1,5 @@
+md-list-item {
+  &.selected {
+    background-color: lighten(#424242, 10%);
+  }
+}

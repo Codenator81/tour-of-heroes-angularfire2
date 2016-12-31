@@ -1,9 +1,10 @@
 import {Component, OnInit} from '@angular/core';
-import {Router} from '@angular/router';
+import {Router, Params, ActivatedRoute} from '@angular/router';
 
 import {Hero, IFirebaseHero, emptyHero} from '../models/hero';
 import {HeroService} from '../services/hero.service';
 import {Observable} from "rxjs";
+import 'rxjs/add/operator/switchMap';
 import {MdDialog, MdDialogRef, MdSnackBar} from "@angular/material";
 import {HeroNameDialogComponent} from "./hero-name-dialog/hero-name-dialog.component";
 
@@ -18,17 +19,23 @@ export class HeroesComponent implements OnInit {
   heroModel: Hero = new Hero(emptyHero);
   powers: Array<string>;
   dialogRef: MdDialogRef<HeroNameDialogComponent>;
+  private selectedId: string;
 
   constructor(
     private router: Router,
+    private route: ActivatedRoute,
     private heroService: HeroService,
     public dialog: MdDialog,
     public snackBar: MdSnackBar
   ) { }
 
   ngOnInit(): void {
-    this.heroes = this.heroService.visibleHeroes$;
     this.powers = this.heroService.getPower();
+    this.heroes = this.route.params
+      .switchMap((params: Params) => {
+        this.selectedId = params['id'];
+        return this.heroService.visibleHeroes$;
+      });
   }
 
   onSave(hero: Hero): void {
@@ -45,6 +52,7 @@ export class HeroesComponent implements OnInit {
   }
 
   openDialog(hero: IFirebaseHero) {
+    this.selectedId = hero.$key;
     this.dialogRef = this.dialog.open(HeroNameDialogComponent);
     this.dialogRef.componentInstance.hero = hero;
     this.dialogRef.afterClosed().subscribe(result => {
@@ -60,4 +68,6 @@ export class HeroesComponent implements OnInit {
       duration: 3500,
     });
   }
+
+  isSelected(hero: IFirebaseHero) { return hero.$key === this.selectedId; }
 }

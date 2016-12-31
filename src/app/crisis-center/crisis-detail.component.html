@@ -1,0 +1,29 @@
+<form (ngSubmit)="onSubmit(crisisForm)" #crisisForm="ngForm">
+<md-card *ngIf="crisis">
+  <md-card-header>
+    <md-card-title>
+      <h2>{{crisis.name}} details!</h2>
+    </md-card-title>
+  </md-card-header>
+  <md-card-content>
+    <md-input-container>
+      <input md-input
+             [(ngModel)]="crisis.name"
+             name="name"
+             placeholder="Crisis name"
+             #name="ngModel"
+             required>
+      <md-hint *ngIf="!name.valid && name.touched" class="error-message" align="start">Crisis name required</md-hint>
+    </md-input-container>
+    <br><br>
+  </md-card-content>
+  <md-card-actions>
+      <button
+        [disabled]="!crisisForm.form.valid"
+        type="submit"
+        md-raised-button
+        color="primary">Save</button>
+      <button type="button" md-raised-button color="accent" (click)="goBack()">To crisises list</button>
+  </md-card-actions>
+</md-card>
+</form>

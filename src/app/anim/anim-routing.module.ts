@@ -4,8 +4,8 @@ import { Routes, RouterModule }        from '@angular/router';
 import { AnimComponent }    from './anim.component';
 
 const routes: Routes = [
+  { path: 'main',    component: AnimComponent },
   { path: '', redirectTo: 'main', pathMatch: 'full'},
-  { path: 'main',    component: AnimComponent }
 ];
 
 @NgModule({

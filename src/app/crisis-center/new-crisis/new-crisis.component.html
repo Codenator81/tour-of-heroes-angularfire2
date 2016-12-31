@@ -1,0 +1,25 @@
+<md-slide-toggle [(ngModel)]="showCrisis" (change)="switchState()" >
+  Show crisis form
+</md-slide-toggle>
+<md-card [@flyInOut]="flyState" *ngIf="showCrisis">
+  <md-card-title>
+    <h4>Add new crisis</h4>
+  </md-card-title>
+  <form (ngSubmit)="onSubmit(crisisForm.form.valid); crisisForm.reset()" #crisisForm="ngForm">
+    <md-input-container>
+      <input md-input
+             [(ngModel)]="crisis.name"
+             name="name"
+             placeholder="Crisis name"
+             #name="ngModel"
+             required>
+      <md-hint *ngIf="!name.valid && name.touched" class="error-message" align="start">Crisis name required</md-hint>
+    </md-input-container>
+    <br><br>
+    <button type="submit"
+            color="primary"
+            md-mini-fab
+            [disabled]="!crisisForm.form.valid"
+    ><md-icon>add</md-icon></button>
+  </form>
+</md-card>

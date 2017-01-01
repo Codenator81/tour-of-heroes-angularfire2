@@ -20,6 +20,7 @@ import {NewHeroComponent}         from './hero/new-hero/new-hero.component';
 import {SharedModule} from "./shared/shared.module";
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import {CrisisModule} from "./crisis-center/crisis.module";
+import {ComposeMessageComponent} from "./compose-message.component";
 @NgModule({
   declarations: [
     AppComponent,
@@ -30,7 +31,8 @@ import {CrisisModule} from "./crisis-center/crisis.module";
     HeroNameDialogComponent,
     PowerListComponent,
     NewHeroComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    ComposeMessageComponent
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,28 @@
+<md-card>
+  <md-card-title>
+    <h3>Contact Crisis Center</h3>
+  </md-card-title>
+  <md-card-content>
+    <div *ngIf="details">
+      {{ details }}
+    </div>
+    <div>
+      <div>
+        <label>Message: </label>
+      </div>
+      <div>
+        <md-input-container>
+          <textarea md-input [(ngModel)]="message" rows="10" cols="35" [disabled]="sending"></textarea>
+        </md-input-container>
+      </div>
+    </div>
+  </md-card-content>
+  <md-card-actions>
+    <p *ngIf="!sending">
+      <button md-raised-button color="primary" (click)="send()">Send</button>
+      <button md-raised-button color="warn" (click)="cancel()">Cancel</button>
+    </p>
+  </md-card-actions>
+</md-card>
+
+

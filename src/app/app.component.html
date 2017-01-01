@@ -23,6 +23,10 @@
       <md-icon>brush</md-icon>
       <span>Animations</span>
     </a>
+    <a md-menu-item [routerLink]="[{ outlets: { popup: ['compose'] } }]">
+      <md-icon >&#xE0CB;</md-icon>
+      <span>Contact</span>
+    </a>
   </md-menu>
 <span class="title">{{title}}</span>
 </md-toolbar>
@@ -31,3 +35,4 @@
   <md-progress-bar mode="indeterminate"></md-progress-bar>
 </div>
 <router-outlet></router-outlet>
+<router-outlet name="popup"></router-outlet>

@@ -7,17 +7,16 @@
     <md-card-title><h2>My Heroes</h2></md-card-title>
   </md-card-header>
   <md-card-content>
-
+    <md-nav-list>
+      <md-list-item [class.selected]="isSelected(hero)"
+        *ngFor="let hero of heroes | async"
+        (click)="openDialog(hero)">
+        <span md-line>{{hero.name}}</span>
+        <button color="warn"
+                md-mini-fab
+                (click)="deleteHero(hero);
+                $event.stopPropagation()"><md-icon>delete</md-icon></button>
+      </md-list-item>
+    </md-nav-list>
   </md-card-content>
-  <md-nav-list>
-    <md-list-item [class.selected]="isSelected(hero)"
-      *ngFor="let hero of heroes | async"
-      (click)="openDialog(hero)">
-      <span md-line>{{hero.name}}</span>
-      <button color="warn"
-              md-mini-fab
-              (click)="deleteHero(hero);
-              $event.stopPropagation()"><md-icon>delete</md-icon></button>
-    </md-list-item>
-  </md-nav-list>
 </md-card>

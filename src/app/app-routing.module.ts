@@ -13,7 +13,7 @@ const routes: Routes = [
   { path: 'heroes',     component: HeroesComponent },
   { path: 'powers',     component: PowerListComponent },
   { path: 'anim',       loadChildren: 'app/anim/anim.module#AnimModule' },
-  { path: 'crisis',     loadChildren: 'app/crisis-center/crisis.module.ts#CrisisModule' },
+  //{ path: 'crisis',     loadChildren: 'app/crisis-center/crisis.module.ts#CrisisModule' },
   { path: '',           redirectTo: '/dashboard', pathMatch: 'full' },
   { path: '**',         component: PageNotFoundComponent },
 ];

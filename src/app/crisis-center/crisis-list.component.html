@@ -7,17 +7,19 @@
     <md-card-title><h2>My Crisises</h2></md-card-title>
   </md-card-header>
   <md-card-content>
-
-  </md-card-content>
-  <md-nav-list>
-    <md-list-item [class.selected]="isSelected(crisis)"
-      *ngFor="let crisis of crisises | async"
-      (click)="openDialog(crisis)">
-      <span md-line>{{crisis.name}}</span>
-      <button color="warn"
-              md-mini-fab
-              (click)="deleteCrisis(crisis);
-              $event.stopPropagation()"><md-icon>delete</md-icon></button>
-    </md-list-item>
+    <md-nav-list>
+      <md-list-item [class.selected]="isSelected(crisis)"
+        *ngFor="let crisis of crisises | async"
+        (click)="openDialog(crisis)">
+        <span md-line>{{crisis.name}}</span>
+        <button color="warn"
+                md-mini-fab
+                (click)="deleteCrisis(crisis);
+                $event.stopPropagation()"><md-icon>delete</md-icon></button>
+      </md-list-item>
   </md-nav-list>
+  </md-card-content>
+</md-card>
+<md-card>
+  <router-outlet></router-outlet>
 </md-card>

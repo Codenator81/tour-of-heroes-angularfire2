@@ -19,6 +19,7 @@ import {PowerListComponent}       from "./power/power-list/power-list.component"
 import {NewHeroComponent}         from './hero/new-hero/new-hero.component';
 import {SharedModule} from "./shared/shared.module";
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import {CrisisModule} from "./crisis-center/crisis.module";
 @NgModule({
   declarations: [
     AppComponent,
@@ -33,10 +34,11 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule,
     AngularFireModule.initializeApp(firebaseConfig),
     FlexLayoutModule.forRoot(),
-    SharedModule
+    SharedModule,
+    CrisisModule,
+    AppRoutingModule,
   ],
   providers: [HeroService],
   bootstrap: [AppComponent],

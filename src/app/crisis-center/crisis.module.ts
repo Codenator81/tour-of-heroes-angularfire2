@@ -8,16 +8,20 @@ import {NewCrisisComponent} from "./new-crisis/new-crisis.component";
 import {CrisisRoutingModule} from "./crisis-routing.module";
 import {CrisisService} from "./services/crisis.service";
 import {CrisisNameDialogComponent} from "./crisis-name-dialog/crisis-name-dialog.component";
+import {CrisisCenterComponent} from "./crisis-center.component";
+import {CrisisCenterHomeComponent} from "./crisis-center-home.component";
 
 @NgModule({
   imports: [ CommonModule,
     FormsModule,
     SharedModule,
     CrisisRoutingModule ],
-  declarations: [ CrisisListComponent,
+  declarations: [ CrisisCenterComponent,
+    CrisisCenterHomeComponent,
+    CrisisListComponent,
     CrisisDetailComponent,
     NewCrisisComponent,
-    CrisisNameDialogComponent
+    CrisisNameDialogComponent,
   ],
   providers: [CrisisService],
   entryComponents: [CrisisNameDialogComponent]

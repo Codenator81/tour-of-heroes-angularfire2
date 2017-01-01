@@ -5,8 +5,7 @@ import {Crisis, IFirebaseCrisis, emptyCrisis} from './models/crisis';
 import {CrisisService} from './services/crisis.service';
 import {Observable} from "rxjs";
 import 'rxjs/add/operator/switchMap';
-import {MdDialog, MdDialogRef, MdSnackBar} from "@angular/material";
-import {CrisisNameDialogComponent} from "./crisis-name-dialog/crisis-name-dialog.component";
+import {MdSnackBar} from "@angular/material";
 
 @Component({
   selector: 'my-crisis-list',
@@ -17,14 +16,12 @@ export class CrisisListComponent implements OnInit {
 
   crisises: Observable<IFirebaseCrisis[]>;
   crisisModel: Crisis = new Crisis(emptyCrisis);
-  dialogRef: MdDialogRef<CrisisNameDialogComponent>;
   private selectedId: string;
 
   constructor(
     private router: Router,
     private route: ActivatedRoute,
     private crisisService: CrisisService,
-    public dialog: MdDialog,
     public snackBar: MdSnackBar
   ) { }
 
@@ -49,16 +46,9 @@ export class CrisisListComponent implements OnInit {
     this.crisisService.deleteCrisis(crisis);
   }
 
-  openDialog(crisis: IFirebaseCrisis) {
+  onSelect(crisis: IFirebaseCrisis) {
     this.selectedId = crisis.$key;
-    this.dialogRef = this.dialog.open(CrisisNameDialogComponent);
-    this.dialogRef.componentInstance.crisis = crisis;
-    this.dialogRef.afterClosed().subscribe(result => {
-      if (result == 'show') {
-        this.dialogRef = null;
-        this.router.navigate(['/crisis/detail', crisis.$key]);
-      }
-    });
+    this.router.navigate([crisis.$key], { relativeTo: this.route });
   }
 
   showFlashMessage(message: string, action: string) {

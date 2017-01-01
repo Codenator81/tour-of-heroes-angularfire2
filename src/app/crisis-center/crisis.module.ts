@@ -7,7 +7,6 @@ import {CrisisDetailComponent} from "./crisis-detail.component";
 import {NewCrisisComponent} from "./new-crisis/new-crisis.component";
 import {CrisisRoutingModule} from "./crisis-routing.module";
 import {CrisisService} from "./services/crisis.service";
-import {CrisisNameDialogComponent} from "./crisis-name-dialog/crisis-name-dialog.component";
 import {CrisisCenterComponent} from "./crisis-center.component";
 import {CrisisCenterHomeComponent} from "./crisis-center-home.component";
 
@@ -20,10 +19,8 @@ import {CrisisCenterHomeComponent} from "./crisis-center-home.component";
     CrisisCenterHomeComponent,
     CrisisListComponent,
     CrisisDetailComponent,
-    NewCrisisComponent,
-    CrisisNameDialogComponent,
+    NewCrisisComponent
   ],
-  providers: [CrisisService],
-  entryComponents: [CrisisNameDialogComponent]
+  providers: [CrisisService]
 })
 export class CrisisModule { }

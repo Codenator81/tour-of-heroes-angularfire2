@@ -9,7 +9,7 @@
   <md-card-content>
     <md-nav-list>
       <md-list-item [class.selected]="isSelected(crisis)"
-        *ngFor="let crisis of crisises | async"
+        *ngFor="let crisis of crisises"
         (click)="onSelect(crisis)">
         <span md-line>{{crisis.name}}</span>
         <button color="warn"

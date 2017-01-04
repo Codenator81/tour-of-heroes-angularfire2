@@ -1,21 +1,17 @@
-import * as firebase from 'firebase';
-
 export interface IHero {
+  _id: string;
   name: string;
   power: string;
   alterEgo?: string;
-  createdAt?: Object;
-}
-
-export interface IFirebaseHero extends IHero{
-  $key?: string;
+  createdAt?: string;
 }
 
 //Init with new Hero({}) and new Hero produce error. For this purpose created emptyHero ))
 export class Hero implements IHero{
+  _id: string;
   public name: string;
   public power: string;
-  public createdAt?: Object = firebase.database.ServerValue.TIMESTAMP;
+  public createdAt?: string = new Date().toLocaleDateString();
   public alterEgo?: string = '';
   constructor(init: Hero
   ) {
@@ -24,6 +20,7 @@ export class Hero implements IHero{
 }
 
 export const emptyHero: Hero = {
+  _id: '',
   name: '',
   power: '',
   alterEgo: ''

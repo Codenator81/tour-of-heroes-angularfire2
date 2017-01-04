@@ -1,9 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {Router, Params, ActivatedRoute} from '@angular/router';
 
-import {Hero, IFirebaseHero, emptyHero} from '../models/hero';
+import {Hero, emptyHero} from '../models/hero';
 import {HeroService} from '../services/hero.service';
-import {Observable} from "rxjs";
 import 'rxjs/add/operator/switchMap';
 import {MdDialog, MdDialogRef, MdSnackBar} from "@angular/material";
 import {HeroNameDialogComponent} from "./hero-name-dialog/hero-name-dialog.component";
@@ -15,7 +14,7 @@ import {HeroNameDialogComponent} from "./hero-name-dialog/hero-name-dialog.compo
 })
 export class HeroesComponent implements OnInit {
 
-  heroes: Observable<IFirebaseHero[]>;
+  heroes: Hero[];
   heroModel: Hero = new Hero(emptyHero);
   powers: Array<string>;
   dialogRef: MdDialogRef<HeroNameDialogComponent>;
@@ -31,34 +30,50 @@ export class HeroesComponent implements OnInit {
 
   ngOnInit(): void {
     this.powers = this.heroService.getPower();
-    this.heroes = this.route.params
+    this.getHeroes();
+    this.route.params
       .switchMap((params: Params) => {
-        this.selectedId = params['id'];
-        return this.heroService.visibleHeroes$;
+        return this.selectedId = params['id'];
+      });
+  }
+
+  getHeroes(): void {
+    this.heroService
+      .getHeroes()
+      .then(heroes => {
+        this.heroes = heroes;
       });
   }
 
   onSave(hero: Hero): void {
+      hero.name = hero.name.trim();
+      if (!hero.name) { return; }
       const heroIns = new Hero(hero);
       this.heroService.create(heroIns)
-        .then(() => {
-          this.heroModel = new Hero(emptyHero);
-          this.showFlashMessage('Hero with name ' + heroIns.name +' saved', 'SAVE');
-        });
+        .then(hero => {
+        // keep things in sync
+        this.heroes.push(hero);
+        this.heroModel = new Hero(emptyHero);
+        this.showFlashMessage('Hero with name ' + heroIns.name +' saved', 'SAVE');
+      })
   }
 
-  deleteHero(hero:IFirebaseHero): void {
-    this.heroService.deleteHero(hero);
+  deleteHero(hero: Hero): void {
+    this.heroService.deleteHero(hero)
+      .then(() => {
+        this.heroes = this.heroes.filter(h => h !== hero);
+        if (this.selectedId == hero._id) { this.selectedId = null; }
+      });
   }
 
-  openDialog(hero: IFirebaseHero) {
-    this.selectedId = hero.$key;
+  openDialog(hero: Hero) {
+    this.selectedId = hero._id;
     this.dialogRef = this.dialog.open(HeroNameDialogComponent);
     this.dialogRef.componentInstance.hero = hero;
     this.dialogRef.afterClosed().subscribe(result => {
       if (result == 'show') {
         this.dialogRef = null;
-        this.router.navigate(['/detail', hero.$key]);
+        this.router.navigate(['/detail', hero._id]);
       }
     });
   }
@@ -69,5 +84,5 @@ export class HeroesComponent implements OnInit {
     });
   }
 
-  isSelected(hero: IFirebaseHero) { return hero.$key === this.selectedId; }
+  isSelected(hero: Hero) { return hero._id === this.selectedId; }
 }

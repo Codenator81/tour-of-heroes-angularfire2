@@ -2,7 +2,7 @@ import 'rxjs/add/operator/switchMap';
 import {Component, OnInit, HostBinding} from '@angular/core';
 import {ActivatedRoute, Params, Router} from '@angular/router';
 
-import {IFirebaseHero, Hero} from '../models/hero';
+import {Hero} from '../models/hero';
 import {HeroService} from '../services/hero.service';
 import { slideInDownAnimation } from '../animations'
 
@@ -15,7 +15,7 @@ import { slideInDownAnimation } from '../animations'
 })
 
 export class HeroDetailComponent implements OnInit {
-  hero: IFirebaseHero;
+  hero: Hero;
   powers = [];
 
   @HostBinding('@routeAnimation') routeAnimation = true;
@@ -36,13 +36,13 @@ export class HeroDetailComponent implements OnInit {
   onSubmit(heroForm) {
     if (heroForm.form.valid) {
       const hero = new Hero(heroForm.value);
-      this.heroService.update(this.hero, hero)
+      this.heroService.update(this.hero)
         .then(() => this.goBack());
     }
   }
 
   goBack(): void {
-    let heroId = this.hero ? this.hero.$key : null;
+    let heroId = this.hero ? this.hero._id : null;
     this.router.navigate(['/heroes', { id: heroId }]);
   }
 }

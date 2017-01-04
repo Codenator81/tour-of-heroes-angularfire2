@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import {MdDialogRef} from "@angular/material";
-import {IFirebaseHero} from "../../models/hero";
+import {Hero} from "../../models/hero";
 
 @Component({
   selector: 'app-hero-name-dialog',
@@ -8,6 +8,6 @@ import {IFirebaseHero} from "../../models/hero";
   styleUrls: ['./hero-name-dialog.component.scss']
 })
 export class HeroNameDialogComponent {
-  hero: IFirebaseHero;
+  hero: Hero;
   constructor(public dialogRef: MdDialogRef<HeroNameDialogComponent>) { }
 }

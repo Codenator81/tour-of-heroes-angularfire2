@@ -2,7 +2,7 @@ import 'rxjs/add/operator/switchMap';
 import {Component, OnInit, HostBinding} from '@angular/core';
 import {ActivatedRoute, Params, Router} from '@angular/router';
 
-import {IFirebaseCrisis, Crisis} from './models/crisis';
+import {Crisis} from './models/crisis';
 import {CrisisService} from './services/crisis.service';
 import { slideInDownAnimation } from '../animations'
 
@@ -15,7 +15,7 @@ import { slideInDownAnimation } from '../animations'
 })
 
 export class CrisisDetailComponent implements OnInit {
-  crisis: IFirebaseCrisis;
+  crisis: Crisis;
 
   @HostBinding('@routeAnimation') routeAnimation = true;
   @HostBinding('style.display')   display = 'block';
@@ -34,13 +34,13 @@ export class CrisisDetailComponent implements OnInit {
   onSubmit(crisisForm) {
     if (crisisForm.form.valid) {
       const crisis = new Crisis(crisisForm.value);
-      this.crisisService.update(this.crisis, crisis)
+      this.crisisService.update(this.crisis)
         .then(() => this.goBack());
     }
   }
 
   goBack(): void {
-    let crisisId = this.crisis ? this.crisis.$key : null;
+    let crisisId = this.crisis ? this.crisis._id : null;
     this.router.navigate(['../', { id: crisisId }], { relativeTo: this.route });
   }
 }

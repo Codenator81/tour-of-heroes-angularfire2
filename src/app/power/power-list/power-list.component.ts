@@ -1,10 +1,5 @@
 import { Component,
-  OnInit,
-  trigger,
-  state,
-  style,
-  transition,
-  animate } from '@angular/core';
+  OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-power-list',

@@ -7,9 +7,9 @@
     <md-card-title><h2>My Heroes</h2></md-card-title>
   </md-card-header>
   <md-card-content>
-    <md-nav-list>
+    <md-nav-list *ngIf="heroes">
       <md-list-item [class.selected]="isSelected(hero)"
-        *ngFor="let hero of heroes | async"
+        *ngFor="let hero of heroes"
         (click)="openDialog(hero)">
         <span md-line>{{hero.name}}</span>
         <button color="warn"

@@ -1,37 +1,62 @@
 import { Injectable } from '@angular/core';
-import { AngularFire, FirebaseListObservable } from "angularfire2";
-import { Observable } from "rxjs";
-import {IFirebaseHero, Hero, Powers} from "../models/hero";
+import { Http , Headers } from '@angular/http';
+import {Hero, Powers} from "../models/hero";
+import 'rxjs/add/operator/toPromise';
 
 @Injectable()
 export class HeroService {
 
-  visibleHeroes$: Observable<IFirebaseHero[]>;
+  private headers = new Headers({'Content-Type': 'application/json'});
 
-  private heroes$: FirebaseListObservable<IFirebaseHero[]>;
+  constructor(public http: Http) {}
 
-  constructor(private af:AngularFire) {
-    this.heroes$ = af.database.list('heroes');
-    this.visibleHeroes$ = this.heroes$;
+  getHeroes() : Promise<Hero[]> {
+    return this.http.get('/api/v1/heroes')
+      .toPromise()
+      .then(response => response.json() as Hero[])
+      .catch(this.handleError);
   }
 
-  getHero(id: number) : Observable<IFirebaseHero> {
-    return this.af.database.object(`heroes/${id}`);
+  getHero(id: number): Promise<Hero> {
+    return this.http.get(`/api/v1/hero/${id}`)
+      .toPromise()
+      .then(response => response.json() as Hero)
+      .catch(this.handleError);
   }
 
-  update(hero: IFirebaseHero, formValues: any): firebase.Promise<any> {
-     return this.heroes$.update( hero.$key, formValues );
+  update(hero: Hero): Promise<Hero> {
+    return this.http
+      .put('/api/v1/hero/' + hero._id, JSON.stringify(hero), {headers: this.headers})
+      .toPromise()
+      .then((hero) => hero.json() as Hero)
+      .catch(this.handleError);
   }
 
-  create(hero: Hero): firebase.Promise<any> {
-    return this.heroes$.push(hero);
+  create(hero: Hero) {
+    return this.http
+      .post('/api/v1/hero', JSON.stringify(hero), {headers: this.headers})
+      .toPromise()
+      .then(res => {
+        return res.json() as Hero
+      })
+      .catch(this.handleError);
   }
 
-  deleteHero(hero: IFirebaseHero): firebase.Promise<any> {
-    return this.heroes$.remove(hero.$key);
+  deleteHero(hero: Hero) {
+    return this.http
+      .delete('/api/v1/hero/' + hero._id)
+      .toPromise()
+      .then(() => null)
+      .catch(this.handleError);
   }
 
   getPower(): Array<any> {
     return Powers;
   }
+
+  private handleError(error: any): Promise<any> {
+    console.error('An error occurred', error); // for demo purposes only
+    return Promise.reject(error.message || error);
+  }
+
 }

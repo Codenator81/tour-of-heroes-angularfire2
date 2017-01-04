@@ -1,17 +1,7 @@
-import * as firebase from 'firebase';
-
-export interface ICrisis {
-  name: string;
-  createdAt?: Object;
-}
-
-export interface IFirebaseCrisis extends ICrisis{
-  $key?: string;
-}
-
-export class Crisis implements ICrisis{
+export class Crisis {
+  _id: string;
   public name: string;
-  public createdAt?: Object = firebase.database.ServerValue.TIMESTAMP;
+  public createdAt?: string = new Date().toLocaleDateString();
   constructor(init: Crisis
   ) {
     Object.assign(this, init);
@@ -19,5 +9,6 @@ export class Crisis implements ICrisis{
 }
 
 export const emptyCrisis: Crisis = {
+  _id: '',
   name: ''
 };

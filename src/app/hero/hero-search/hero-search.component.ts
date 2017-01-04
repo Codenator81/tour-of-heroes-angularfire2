@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import {Router} from "@angular/router";
 
 import {HeroService} from "../../services/hero.service";
-import {IFirebaseHero} from "../../models/hero";
+import {Hero} from "../../models/hero";
 
 @Component({
   selector: 'hero-search',
@@ -11,7 +11,7 @@ import {IFirebaseHero} from "../../models/hero";
 })
 export class HeroSearchComponent {
 
-  heroes: IFirebaseHero[] = [];
+  heroes = [];
 
   constructor(
     private heroService: HeroService,
@@ -21,14 +21,14 @@ export class HeroSearchComponent {
     if (term.length <= 1) {
       this.heroes = [];
     } else {
-      this.heroService.visibleHeroes$
-        .subscribe(heroes => this.heroes =
+      this.heroService.getHeroes()
+        .then(heroes => this.heroes =
           heroes.filter(hero => hero.name.indexOf(term) !== -1));
     }
   }
 
-  gotoDetail(hero: IFirebaseHero): void {
-    let link = ['/detail', hero.$key];
+  gotoDetail(hero: Hero): void {
+    let link = ['/detail', hero._id];
     this.router.navigate(link);
   }
 

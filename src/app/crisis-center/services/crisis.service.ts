@@ -1,33 +1,55 @@
 import { Injectable } from '@angular/core';
-import { AngularFire, FirebaseListObservable } from "angularfire2";
-import { Observable } from "rxjs";
-import {IFirebaseCrisis, Crisis} from "../models/crisis";
+import { Http , Headers } from '@angular/http';
+import {Crisis} from "../models/crisis";
+import 'rxjs/add/operator/toPromise';
 
 @Injectable()
 export class CrisisService {
 
-  visibleCrisises$: Observable<IFirebaseCrisis[]>;
+  private headers = new Headers({'Content-Type': 'application/json'});
 
-  private crisises$: FirebaseListObservable<IFirebaseCrisis[]>;
+  constructor(public http: Http) {}
 
-  constructor(private af:AngularFire) {
-    this.crisises$ = af.database.list('crisises');
-    this.visibleCrisises$ = this.crisises$;
+  getCrisises() : Promise<Crisis[]> {
+    return this.http.get('/api/v1/crisises')
+      .toPromise()
+      .then(response => response.json() as Crisis[])
+      .catch(this.handleError);
   }
 
-  getCrisis(id: number) : Observable<IFirebaseCrisis> {
-    return this.af.database.object(`crisises/${id}`);
+  getCrisis(id: number) : Promise<Crisis> {
+    return this.http.get(`/api/v1/crisis/${id}`)
+      .toPromise()
+      .then(response => response.json() as Crisis)
+      .catch(this.handleError);
   }
 
-  update(crisis: IFirebaseCrisis, formValues: any): firebase.Promise<any> {
-     return this.crisises$.update( crisis.$key, formValues );
+  update(crisis: Crisis): Promise<Crisis> {
+    return this.http
+      .put('/api/v1/crisis/' + crisis._id, JSON.stringify(crisis), {headers: this.headers})
+      .toPromise()
+      .then((crisis) => crisis)
+      .catch(this.handleError);
   }
 
-  create(crisis: Crisis): firebase.Promise<any> {
-    return this.crisises$.push(crisis);
+  create(crisis: Crisis) {
+    return this.http
+      .post('/api/v1/crisis', JSON.stringify(crisis), {headers: this.headers})
+      .toPromise()
+      .then(res => res.json())
+      .catch(this.handleError);
   }
 
-  deleteCrisis(crisis: IFirebaseCrisis): firebase.Promise<any> {
-    return this.crisises$.remove(crisis.$key);
+  deleteCrisis(crisis: Crisis): Promise<Crisis> {
+    return this.http
+      .delete('/api/v1/crisis/' + crisis._id)
+      .toPromise()
+      .then(() => null)
+      .catch(this.handleError);
+  }
+
+  private handleError(error: any): Promise<any> {
+    console.error('An error occurred', error); // for demo purposes only
+    return Promise.reject(error.message || error);
   }
 }

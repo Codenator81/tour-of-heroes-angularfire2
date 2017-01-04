@@ -1,9 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {Router, Params, ActivatedRoute} from '@angular/router';
 
-import {Crisis, IFirebaseCrisis, emptyCrisis} from './models/crisis';
+import {Crisis, emptyCrisis} from './models/crisis';
 import {CrisisService} from './services/crisis.service';
-import {Observable} from "rxjs";
 import 'rxjs/add/operator/switchMap';
 import {MdSnackBar} from "@angular/material";
 
@@ -14,7 +13,7 @@ import {MdSnackBar} from "@angular/material";
 })
 export class CrisisListComponent implements OnInit {
 
-  crisises: Observable<IFirebaseCrisis[]>;
+  crisises : Crisis[];
   crisisModel: Crisis = new Crisis(emptyCrisis);
   private selectedId: string;
 
@@ -26,29 +25,42 @@ export class CrisisListComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.crisises = this.route.params
+    this.getCrisises();
+    this.route.params
       .switchMap((params: Params) => {
         this.selectedId = params['id'];
-        return this.crisisService.visibleCrisises$;
+        return this.crisises;
       });
+  }
+
+  getCrisises(): void {
+    this.crisisService
+      .getCrisises()
+      .then(crisises => this.crisises = crisises);
   }
 
   onSave(crisis: Crisis): void {
       const crisisIns = new Crisis(crisis);
       this.crisisService.create(crisisIns)
-        .then(() => {
+        .then((crisis) => {
+          // keep things in sync
+          this.crisises.push(crisis);
           this.crisisModel = new Crisis(emptyCrisis);
           this.showFlashMessage('Crisis with name ' + crisisIns.name +' saved', 'SAVE');
         });
   }
 
-  deleteCrisis(crisis:IFirebaseCrisis): void {
-    this.crisisService.deleteCrisis(crisis);
+  deleteCrisis(crisis: Crisis): void {
+    this.crisisService.deleteCrisis(crisis)
+      .then(() => {
+      this.crisises = this.crisises.filter(h => h !== crisis);
+      if (this.selectedId == crisis._id) { this.selectedId = null; }
+    });;
   }
 
-  onSelect(crisis: IFirebaseCrisis) {
-    this.selectedId = crisis.$key;
-    this.router.navigate([crisis.$key], { relativeTo: this.route });
+  onSelect(crisis: Crisis) {
+    this.selectedId = crisis._id;
+    this.router.navigate([crisis._id], { relativeTo: this.route });
   }
 
   showFlashMessage(message: string, action: string) {
@@ -57,5 +69,5 @@ export class CrisisListComponent implements OnInit {
     });
   }
 
-  isSelected(crisis: IFirebaseCrisis) { return crisis.$key === this.selectedId; }
+  isSelected(crisis: Crisis) { return crisis._id === this.selectedId; }
 }

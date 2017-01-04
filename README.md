@@ -1,10 +1,11 @@
-# Tour Of Heroes on angularfire2
+# Tour Of Heroes on MongoDB
 
-angular-cli and Firebase
+Requirements:
+* MongoDb must be installed on local pc
+* NodeJS
 
-Live example: https://n2play-ee2bb.firebaseapp.com
+angular-cli and MongoDB
 
-Rename `src/environments/firebase.config.ts.example` to `firebase.config.ts`
 
 ```
 npm install

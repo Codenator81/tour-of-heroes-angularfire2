@@ -55,7 +55,7 @@ export class CrisisListComponent implements OnInit {
       .then(() => {
       this.crisises = this.crisises.filter(h => h !== crisis);
       if (this.selectedId == crisis._id) { this.selectedId = null; }
-    });;
+    });
   }
 
   onSelect(crisis: Crisis) {

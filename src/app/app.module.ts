@@ -18,6 +18,8 @@ import {SharedModule} from "./shared/shared.module";
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import {CrisisModule} from "./crisis-center/crisis.module";
 import {ComposeMessageComponent} from "./compose-message.component";
+import {AdminModule} from "./admin/admin.module";
+import {FormsModule} from "@angular/forms";
 @NgModule({
   declarations: [
     AppComponent,
@@ -36,6 +38,8 @@ import {ComposeMessageComponent} from "./compose-message.component";
     FlexLayoutModule.forRoot(),
     SharedModule,
     CrisisModule,
+    AdminModule,
+    FormsModule,
     AppRoutingModule,
   ],
   providers: [HeroService],

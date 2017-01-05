@@ -3,23 +3,27 @@
     <md-icon>menu</md-icon>
   </button>
   <md-menu #menu="mdMenu">
-    <a md-menu-item routerLink="dashboard">
+    <a md-menu-item routerLink="dashboard" routerLinkActive="active">
       <md-icon>dialpad</md-icon>
       <span>Dashboard</span>
     </a>
-    <a md-menu-item routerLink="heroes">
+    <a md-menu-item routerLink="heroes" routerLinkActive="active">
       <md-icon>voicemail</md-icon>
       <span>Heroes</span>
     </a>
-    <a md-menu-item routerLink="/crisis-center">
+    <a md-menu-item routerLink="/crisis-center" routerLinkActive="active">
       <md-icon>memory</md-icon>
       <span>Crisis Center</span>
     </a>
-    <a md-menu-item routerLink="/powers">
+    <a md-menu-item routerLink="/admin" routerLinkActive="active">
+      <md-icon>lock</md-icon>
+      <span>Admin</span>
+    </a>
+    <a md-menu-item routerLink="/powers" routerLinkActive="active">
       <md-icon>power</md-icon>
       <span>Powers</span>
     </a>
-    <a md-menu-item routerLink="/anim">
+    <a md-menu-item routerLink="/anim" routerLinkActive="active">
       <md-icon>brush</md-icon>
       <span>Animations</span>
     </a>

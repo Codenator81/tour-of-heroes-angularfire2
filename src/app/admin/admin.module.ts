@@ -5,6 +5,7 @@ import { ManageCrisesComponent }    from './manage-crises.component';
 import { ManageHeroesComponent }    from './manage-heroes.component';
 import { AdminRoutingModule }       from './admin-routing.module';
 import {SharedModule} from "../shared/shared.module";
+import {AuthGuard} from "../services/auth-guard.service";
 @NgModule({
   imports: [
     SharedModule,
@@ -15,6 +16,9 @@ import {SharedModule} from "../shared/shared.module";
     AdminDashboardComponent,
     ManageCrisesComponent,
     ManageHeroesComponent
-  ]
+  ],
+  providers: [
+    AuthGuard
+  ],
 })
 export class AdminModule {}

@@ -4,11 +4,13 @@ import {ManageCrisesComponent} from "./manage-crises.component";
 import {ManageHeroesComponent} from "./manage-heroes.component";
 import {AdminDashboardComponent} from "./admin-dashboard.component";
 import {NgModule} from "@angular/core";
+import {AuthGuard} from "../services/auth-guard.service";
 
 const adminRoutes: Routes = [
   {
     path: 'admin',
     component: AdminComponent,
+    canActivate: [AuthGuard],
     children: [
       {
         path: '',

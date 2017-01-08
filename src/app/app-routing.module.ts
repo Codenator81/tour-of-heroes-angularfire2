@@ -8,6 +8,7 @@ import {PowerListComponent} from "./power/power-list/power-list.component";
 import {PageNotFoundComponent} from "./page-not-found/page-not-found.component";
 import {ComposeMessageComponent} from "./compose-message.component";
 import {CanDeactivateGuard} from "./services/can-deactivate-guard.service";
+import {AuthGuard} from "./services/auth-guard.service";
 
 const routes: Routes = [
   { path: 'dashboard',  component: DashboardComponent },
@@ -15,7 +16,10 @@ const routes: Routes = [
   { path: 'heroes',     component: HeroesComponent },
   { path: 'powers',     component: PowerListComponent },
   { path: 'anim',       loadChildren: 'app/anim/anim.module#AnimModule' },
-  { path: 'admin',      loadChildren: 'app/admin/admin.module#AdminModule' },
+  { path: 'admin',
+    loadChildren: 'app/admin/admin.module#AdminModule',
+    canLoad: [AuthGuard],
+  },
   {
     path: 'compose',
     component: ComposeMessageComponent,

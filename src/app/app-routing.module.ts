@@ -9,6 +9,7 @@ import {PageNotFoundComponent} from "./page-not-found/page-not-found.component";
 import {ComposeMessageComponent} from "./compose-message.component";
 import {CanDeactivateGuard} from "./services/can-deactivate-guard.service";
 import {AuthGuard} from "./services/auth-guard.service";
+import {SelectivePreloadingStrategy} from "./selective-preloading-strategy";
 
 const routes: Routes = [
   { path: 'dashboard',  component: DashboardComponent },
@@ -16,7 +17,8 @@ const routes: Routes = [
   { path: 'heroes',     component: HeroesComponent },
   {
     path: 'crisis-center',
-    loadChildren: 'app/crisis-center/crisis.module#CrisisModule'
+    loadChildren: 'app/crisis-center/crisis.module#CrisisModule',
+    data: { preload: true }
   },
   { path: 'powers',     component: PowerListComponent },
   { path: 'anim',       loadChildren: 'app/anim/anim.module#AnimModule' },
@@ -36,11 +38,12 @@ const routes: Routes = [
 
 @NgModule({
   imports: [ RouterModule.forRoot(routes, {
-    preloadingStrategy: PreloadAllModules
+    preloadingStrategy: SelectivePreloadingStrategy
   }) ],
   exports: [ RouterModule ],
   providers: [
-    CanDeactivateGuard
+    CanDeactivateGuard,
+    SelectivePreloadingStrategy
   ]
 })
 export class AppRoutingModule {}

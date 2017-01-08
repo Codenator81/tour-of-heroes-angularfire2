@@ -27,19 +27,18 @@ export class CrisisDetailComponent implements OnInit {
     private router: Router,
   ) {}
 
-  ngOnInit(): void {
-    this.route.params
-      .switchMap((params: Params) => this.crisisService.getCrisis(params['id']))
-      .subscribe(crisis => {
-        this.crisis = crisis;
-        this.editName = crisis.name;
+  ngOnInit() {
+    this.route.data
+      .subscribe((data: { crisis: Crisis }) => {
+        this.editName = data.crisis.name;
+        this.crisis = data.crisis;
       });
   }
+
 
   onSubmit(crisisForm) {
     if (crisisForm.form.valid) {
       this.crisis.name = this.editName;
-      const crisis = new Crisis(crisisForm.value);
       this.crisisService.update(this.crisis)
         .then(() => this.goBack());
     }

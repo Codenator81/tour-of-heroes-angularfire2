@@ -5,6 +5,7 @@ import {CrisisDetailComponent} from "./crisis-detail.component";
 import {CrisisCenterComponent} from "./crisis-center.component";
 import {CrisisCenterHomeComponent} from "./crisis-center-home.component";
 import {CanDeactivateGuard} from "../services/can-deactivate-guard.service";
+import {CrisisDetailResolver} from "./services/crisis-detail-resolver.service";
 
 const crisisCenterRoutes: Routes = [
   {
@@ -18,7 +19,10 @@ const crisisCenterRoutes: Routes = [
           {
             path: ':id',
             component: CrisisDetailComponent,
-            canDeactivate: [CanDeactivateGuard]
+            canDeactivate: [CanDeactivateGuard],
+            resolve: {
+              crisis: CrisisDetailResolver
+            }
           },
           {
             path: '',
@@ -32,6 +36,9 @@ const crisisCenterRoutes: Routes = [
 
 @NgModule({
   imports: [RouterModule.forChild(crisisCenterRoutes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
+  providers: [
+    CrisisDetailResolver
+  ]
 })
 export class CrisisRoutingModule {}

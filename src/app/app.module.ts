@@ -20,6 +20,8 @@ import {CrisisModule} from "./crisis-center/crisis.module";
 import {ComposeMessageComponent} from "./compose-message.component";
 import {AdminModule} from "./admin/admin.module";
 import {FormsModule} from "@angular/forms";
+import {LoginRoutingModule} from "./login-routing.module";
+import {LoginComponent} from "./login.component";
 @NgModule({
   declarations: [
     AppComponent,
@@ -30,6 +32,7 @@ import {FormsModule} from "@angular/forms";
     HeroNameDialogComponent,
     PowerListComponent,
     NewHeroComponent,
+    LoginComponent,
     PageNotFoundComponent,
     ComposeMessageComponent
   ],
@@ -40,6 +43,7 @@ import {FormsModule} from "@angular/forms";
     CrisisModule,
     AdminModule,
     FormsModule,
+    LoginRoutingModule,
     AppRoutingModule,
   ],
   providers: [HeroService],

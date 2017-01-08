@@ -2,8 +2,9 @@
 <md-card *ngIf="crisis">
   <md-card-content>
     <md-input-container>
+      <h3>"{{ editName }}"</h3>
       <input md-input
-             [(ngModel)]="crisis.name"
+             [(ngModel)]="editName"
              name="name"
              placeholder="Crisis name"
              #name="ngModel"

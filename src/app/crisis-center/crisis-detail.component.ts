@@ -16,6 +16,7 @@ import { slideInDownAnimation } from '../animations'
 
 export class CrisisDetailComponent implements OnInit {
   crisis: Crisis;
+  editName: string;
 
   @HostBinding('@routeAnimation') routeAnimation = true;
   @HostBinding('style.display')   display = 'block';
@@ -29,14 +30,29 @@ export class CrisisDetailComponent implements OnInit {
   ngOnInit(): void {
     this.route.params
       .switchMap((params: Params) => this.crisisService.getCrisis(params['id']))
-      .subscribe(crisis => this.crisis = crisis);
+      .subscribe(crisis => {
+        this.crisis = crisis;
+        this.editName = crisis.name;
+      });
   }
+
   onSubmit(crisisForm) {
     if (crisisForm.form.valid) {
+      this.crisis.name = this.editName;
       const crisis = new Crisis(crisisForm.value);
       this.crisisService.update(this.crisis)
         .then(() => this.goBack());
     }
+  }
+
+  canDeactivate(): Promise<boolean> | boolean {
+    // Allow synchronous navigation (`true`) if no crisis or the crisis is unchanged
+    if (!this.crisis || this.crisis.name === this.editName) {
+      return true;
+    }
+    // Otherwise ask the user with the dialog service and return its
+    // promise which resolves to true or false when the user decides
+    return window.confirm('Discard changes?');
   }
 
   goBack(): void {

@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Http , Headers } from '@angular/http';
 import {Crisis} from "../models/crisis";
 import 'rxjs/add/operator/toPromise';
+import {Observable} from "rxjs";
 
 @Injectable()
 export class CrisisService {
@@ -10,11 +11,9 @@ export class CrisisService {
 
   constructor(public http: Http) {}
 
-  getCrisises() : Promise<Crisis[]> {
+  getCrisises() : Observable<Crisis[]> {
     return this.http.get('/api/v1/crisises')
-      .toPromise()
-      .then(response => response.json() as Crisis[])
-      .catch(this.handleError);
+      .map(response => response.json() as Crisis[]);
   }
 
   getCrisis(id: number) : Promise<Crisis> {
@@ -28,7 +27,9 @@ export class CrisisService {
     return this.http
       .put('/api/v1/crisis/' + crisis._id, JSON.stringify(crisis), {headers: this.headers})
       .toPromise()
-      .then((crisis) => crisis)
+      .then((crisis) => {
+      return crisis
+    })
       .catch(this.handleError);
   }
 

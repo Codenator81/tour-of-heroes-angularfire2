@@ -7,6 +7,7 @@ import { HeroDetailComponent }  from './hero/hero-detail.component';
 import {PowerListComponent} from "./power/power-list/power-list.component";
 import {PageNotFoundComponent} from "./page-not-found/page-not-found.component";
 import {ComposeMessageComponent} from "./compose-message.component";
+import {CanDeactivateGuard} from "./services/can-deactivate-guard.service";
 
 const routes: Routes = [
   { path: 'dashboard',  component: DashboardComponent },
@@ -26,6 +27,9 @@ const routes: Routes = [
 
 @NgModule({
   imports: [ RouterModule.forRoot(routes) ],
-  exports: [ RouterModule ]
+  exports: [ RouterModule ],
+  providers: [
+    CanDeactivateGuard
+  ]
 })
 export class AppRoutingModule {}

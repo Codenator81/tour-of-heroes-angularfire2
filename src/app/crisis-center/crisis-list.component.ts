@@ -5,6 +5,7 @@ import {Crisis, emptyCrisis} from './models/crisis';
 import {CrisisService} from './services/crisis.service';
 import 'rxjs/add/operator/switchMap';
 import {MdSnackBar} from "@angular/material";
+import {Observable} from "rxjs";
 
 @Component({
   selector: 'my-crisis-list',
@@ -13,7 +14,7 @@ import {MdSnackBar} from "@angular/material";
 })
 export class CrisisListComponent implements OnInit {
 
-  crisises : Crisis[];
+  crisises : Observable<Crisis[]>;
   crisisModel: Crisis = new Crisis(emptyCrisis);
   private selectedId: string;
 
@@ -25,18 +26,11 @@ export class CrisisListComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.getCrisises();
-    this.route.params
+    this.crisises = this.route.params
       .switchMap((params: Params) => {
         this.selectedId = params['id'];
-        return this.crisises;
+        return this.crisisService.getCrisises();
       });
-  }
-
-  getCrisises(): void {
-    this.crisisService
-      .getCrisises()
-      .then(crisises => this.crisises = crisises);
   }
 
   onSave(crisis: Crisis): void {
@@ -44,7 +38,6 @@ export class CrisisListComponent implements OnInit {
       this.crisisService.create(crisisIns)
         .then((crisis) => {
           // keep things in sync
-          this.crisises.push(crisis);
           this.crisisModel = new Crisis(emptyCrisis);
           this.showFlashMessage('Crisis with name ' + crisisIns.name +' saved', 'SAVE');
         });
@@ -53,8 +46,15 @@ export class CrisisListComponent implements OnInit {
   deleteCrisis(crisis: Crisis): void {
     this.crisisService.deleteCrisis(crisis)
       .then(() => {
-      this.crisises = this.crisises.filter(h => h !== crisis);
+      this.crisises.subscribe(
+        (h) => {
+          h.filter((h) => {
+            return h !== crisis;
+          });
+        }
+      );
       if (this.selectedId == crisis._id) { this.selectedId = null; }
+      this.showFlashMessage('Crisis with name ' + crisis.name +' deleted', 'DELETE');
     });
   }
 

@@ -1,5 +1,5 @@
 import { NgModule }             from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import {RouterModule, Routes, PreloadAllModules} from '@angular/router';
 
 import { DashboardComponent }   from './hero/dashboard.component';
 import { HeroesComponent }      from './hero/heroes.component';
@@ -14,9 +14,14 @@ const routes: Routes = [
   { path: 'dashboard',  component: DashboardComponent },
   { path: 'detail/:id', component: HeroDetailComponent },
   { path: 'heroes',     component: HeroesComponent },
+  {
+    path: 'crisis-center',
+    loadChildren: 'app/crisis-center/crisis.module#CrisisModule'
+  },
   { path: 'powers',     component: PowerListComponent },
   { path: 'anim',       loadChildren: 'app/anim/anim.module#AnimModule' },
-  { path: 'admin',
+  {
+    path: 'admin',
     loadChildren: 'app/admin/admin.module#AdminModule',
     canLoad: [AuthGuard],
   },
@@ -25,13 +30,14 @@ const routes: Routes = [
     component: ComposeMessageComponent,
     outlet: 'popup'
   },
-  //{ path: 'crisis',     loadChildren: 'app/crisis-center/crisis.module.ts#CrisisModule' },
   { path: '',           redirectTo: '/dashboard', pathMatch: 'full' },
   { path: '**',         component: PageNotFoundComponent },
 ];
 
 @NgModule({
-  imports: [ RouterModule.forRoot(routes) ],
+  imports: [ RouterModule.forRoot(routes, {
+    preloadingStrategy: PreloadAllModules
+  }) ],
   exports: [ RouterModule ],
   providers: [
     CanDeactivateGuard

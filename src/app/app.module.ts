@@ -16,7 +16,6 @@ import {PowerListComponent}       from "./power/power-list/power-list.component"
 import {NewHeroComponent}         from './hero/new-hero/new-hero.component';
 import {SharedModule} from "./shared/shared.module";
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
-import {CrisisModule} from "./crisis-center/crisis.module";
 import {ComposeMessageComponent} from "./compose-message.component";
 import {FormsModule} from "@angular/forms";
 import {LoginRoutingModule} from "./login-routing.module";
@@ -39,7 +38,6 @@ import {LoginComponent} from "./login.component";
     BrowserModule,
     FlexLayoutModule.forRoot(),
     SharedModule,
-    CrisisModule,
     FormsModule,
     LoginRoutingModule,
     AppRoutingModule,

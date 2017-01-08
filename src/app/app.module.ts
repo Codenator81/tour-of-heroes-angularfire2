@@ -18,7 +18,6 @@ import {SharedModule} from "./shared/shared.module";
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import {CrisisModule} from "./crisis-center/crisis.module";
 import {ComposeMessageComponent} from "./compose-message.component";
-import {AdminModule} from "./admin/admin.module";
 import {FormsModule} from "@angular/forms";
 import {LoginRoutingModule} from "./login-routing.module";
 import {LoginComponent} from "./login.component";
@@ -41,7 +40,6 @@ import {LoginComponent} from "./login.component";
     FlexLayoutModule.forRoot(),
     SharedModule,
     CrisisModule,
-    AdminModule,
     FormsModule,
     LoginRoutingModule,
     AppRoutingModule,

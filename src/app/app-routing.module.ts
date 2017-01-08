@@ -15,6 +15,7 @@ const routes: Routes = [
   { path: 'heroes',     component: HeroesComponent },
   { path: 'powers',     component: PowerListComponent },
   { path: 'anim',       loadChildren: 'app/anim/anim.module#AnimModule' },
+  { path: 'admin',      loadChildren: 'app/admin/admin.module#AdminModule' },
   {
     path: 'compose',
     component: ComposeMessageComponent,

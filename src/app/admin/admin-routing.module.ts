@@ -8,7 +8,7 @@ import {AuthGuard} from "../services/auth-guard.service";
 
 const adminRoutes: Routes = [
   {
-    path: 'admin',
+    path: '',
     component: AdminComponent,
     canActivate: [AuthGuard],
     children: [

@@ -17,7 +17,7 @@ import {NewHeroComponent}         from './hero/new-hero/new-hero.component';
 import {SharedModule} from "./shared/shared.module";
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import {ComposeMessageComponent} from "./compose-message.component";
-import {FormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {LoginRoutingModule} from "./login-routing.module";
 import {LoginComponent} from "./login.component";
 @NgModule({
@@ -39,6 +39,7 @@ import {LoginComponent} from "./login.component";
     FlexLayoutModule.forRoot(),
     SharedModule,
     FormsModule,
+    ReactiveFormsModule,
     LoginRoutingModule,
     AppRoutingModule,
   ],

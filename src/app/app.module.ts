@@ -1,4 +1,4 @@
-import {BrowserModule}            from '@angular/platform-browser';
+import {BrowserModule, Title}            from '@angular/platform-browser';
 import {NgModule}                 from '@angular/core';
 import {FlexLayoutModule}         from '@angular/flex-layout';
 import 'hammerjs';
@@ -42,7 +42,10 @@ import {LoginComponent} from "./login.component";
     LoginRoutingModule,
     AppRoutingModule,
   ],
-  providers: [HeroService],
+  providers: [
+    HeroService,
+    Title
+  ],
   bootstrap: [AppComponent],
   entryComponents: [HeroNameDialogComponent]
 })

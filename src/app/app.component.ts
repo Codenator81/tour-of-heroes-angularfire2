@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {
   Router,
   Event as RouterEvent,
@@ -7,20 +7,24 @@ import {
   NavigationCancel,
   NavigationError
 } from "@angular/router";
+import {Title} from "@angular/platform-browser";
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   title = 'Tour of Heroes';
   loading: boolean = true;
 
-  constructor(private router: Router) {
-    router.events.subscribe((event: RouterEvent) => {
+  constructor(private router: Router, private titleService: Title) {}
+
+  ngOnInit() {
+    this.router.events.subscribe((event: RouterEvent) => {
       this.navigationInterceptor(event);
     });
+    this.titleService.setTitle( 'Tour of Hero' );
   }
 
   // Shows and hides the loading spinner during RouterEvent changes
